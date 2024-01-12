@@ -498,13 +498,24 @@ function extractEmails(str) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace(/[a-zA-Z]/g, function (match) {
-    const isUpperCase = match === match.toUpperCase();
-    const baseCharCode = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
-    const offset = (match.charCodeAt(0) - baseCharCode + 13) % 26;
-    const encodedCharCode = baseCharCode + offset;
-    return String.fromCharCode(encodedCharCode);
+  // return str.replace(/[a-zA-Z]/g, function (match) {
+  //   const isUpperCase = match === match.toUpperCase();
+  //   const baseCharCode = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+  //   const offset = (match.charCodeAt(0) - baseCharCode + 13) % 26;
+  //   const encodedCharCode = baseCharCode + offset;
+  //   return String.fromCharCode(encodedCharCode);
+  // });
+  const encoded = str.split('').map((char) => {
+    if (/[a-zA-Z]/.test(char)) {
+      const isUpperCase = char === char.toUpperCase();
+      const baseCharCode = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+      const offset = (char.charCodeAt(0) - baseCharCode + 13) % 26;
+      const encodedCharCode = baseCharCode + offset;
+      return String.fromCharCode(encodedCharCode);
+    }
+    return char;
   });
+  return encoded.join('');
 }
 
 /**
